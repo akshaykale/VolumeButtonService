@@ -1,5 +1,7 @@
 package com.goa.vrshoot_messanger;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,9 +30,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
         serverThread = new ServerThread();
         serverThread.start();
+
+        SharedPreferences sp = getSharedPreferences("fik",MODE_PRIVATE);
+        if(false){//sp.getString("a","").equals("1")){
+
+        }else {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("a","1");
+            editor.apply();
+            startService(new Intent(MainActivity.this, GlobalTouchService.class));
+        }
     }
 
     @Override

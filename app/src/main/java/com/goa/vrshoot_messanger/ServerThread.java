@@ -43,14 +43,24 @@ public class ServerThread extends Thread {
         }
     }
 
-    public void sendMessage(){
+    public void sendMessage(int ch){
+        if (socket != null && server!= null) {
 
-        try {
-            DataOutputStream dataOutputStream=new DataOutputStream(socket.getOutputStream());
-            dataOutputStream.writeBytes("fire");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                switch (ch){
+                    case 0://reload
+                        dataOutputStream.writeBytes("0");
+                        break;
+                    case 1://fire
+                        dataOutputStream.writeBytes("1");
+                        break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else
+            return;
     }
 
     public Socket getSocket(){
